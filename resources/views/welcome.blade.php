@@ -62,8 +62,13 @@
                 margin-bottom: 30px;
             }
         </style>
+        <!-- You MUST include jQuery before Fomantic -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+<script src="js/semantic.min.js"></script>
     </head>
     <body>
+        <div class="ui red button ">sdf</div>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
