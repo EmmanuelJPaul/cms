@@ -1,0 +1,332 @@
+
+body{
+	background-color: #FFFFFF;
+	color: #505050;
+	
+}
+
+fieldset{
+	border: 0px;
+	border-radius: 2px;
+	padding: 15px;
+	margin: 0px 0px 10px 0px;
+	background-color: #FFFFFF; 
+}
+
+/**
+ * Navbar Styling
+ *
+ */
+.ui.menu{
+	border-radius: 0px;
+	width: 100%;
+	height: 65px;
+	background-color: #FAFAFA;
+	box-shadow: none;
+	border: 0px;
+}
+.ui.menu .item:before{
+	background-color: transparent;
+}
+/* Navbar Brand*/
+.ui.menu img{
+	padding: 10px 5px 0px 15px;
+	height: 55px;
+	width: auto;
+}
+.ui.menu .content{
+	padding: 15px 5px 0px 5px;
+	color: #37ABC0;
+	font-weight: bold;
+	font-size: 1.1rem;
+}
+.ui.menu .sub.header{
+	color: #333;
+	font-size: 0.8rem;
+}
+/* Navbar Dropdown*/
+.ui.menu .item{
+	color: #707070;
+}
+.ui.menu .dropdown.item:hover{
+	background: transparent;
+}
+.ui.menu .dropdown.item .menu{
+	border: 0px;
+	border-radius: 0.28571429rem;
+	box-shadow: 1px 1px 6px #DDD;  
+}	
+
+.profile_img{
+	height: 50px;
+	width: 50px;
+}
+
+/**
+ * Side Bar Styling
+ *
+ */
+
+.side_bar{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	color: #707070;
+	background-color: #F6F6F6;
+	width: 250px;
+	margin-top: 65px;
+	padding-top: 70px;
+}
+.side_bar .item{
+	padding: 15px 20px;
+	font-weight: normal;
+	cursor: pointer;
+}
+.side_bar .item:hover{
+	background-color: #FFFFFF;
+}
+
+.side_bar .item:focus{
+	background-color: red;
+}
+.ui.accordion .title:not(.ui) {
+    padding: 0;
+    font-size: 1em;
+    color: #707070;
+}
+.ui.accordion .title:not(.ui).active {
+    background-color: #FFFFFF;
+}
+.ui.accordion:not(.styled)
+.title~.content:not(.ui) {
+    padding: 0px;  
+}
+
+.sub_item{
+    display: block;
+    width: 100%;
+    text-align: left;
+    background-color: #F1F1F1;
+    border: 0px;
+    border-radius: 0px;
+    padding: 13px 50px;
+    font-size: 14px;
+    color: #707070;
+}
+.sub_item:hover{
+    background-color: #FFFFFF;
+    color: #707070;
+}
+.sub_item{
+    outline: none;
+}
+.focus{
+    background-color: #FFFFFF;
+    border-left: 4px solid #37ABC0;
+    outline: none;
+    color: #707070;
+}
+#medium{
+	font-size: 1.3rem;
+}
+
+/**
+ * Main Content Styling
+ *
+ */
+.main_content_wrapper{
+	margin-left: 250px;
+	margin-top: 65px;
+}
+.main_content{
+	padding: 50px 100px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.ui.placeholder.segment, .ui.placeholder.segment h1{
+    background-color: transparent;
+	border: 0px;
+	font-weight: bold;
+	font-size: 1.8em;
+}
+.segment_svg{
+	height: auto;
+	width: 400px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+.segment_svg2{
+	height: auto;
+	width: 300px;
+	position: absolute;
+	bottom: 0;
+}
+.sub_section{
+	padding: 10px;
+}
+.sub_section h3{
+	font-style: italic;
+	font-weight: normal;
+}
+
+.field_action_btn{
+	margin-bottom: 20px;
+	background-color: blue;
+}
+
+#field_section{
+	border-radius: 2px;
+	margin-bottom: 20px;
+	background-color: #edeff0;
+	padding: 10px;
+}
+
+/*********** Display Details (used in staff details pages) ***********/
+.display_details{
+    font-family: 'Roboto', sans-serif;
+    color: #707070;
+}
+.display_details h2{
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    color: #37ABC0;
+    font-weight: 900;
+    font-style: italic;
+    margin-bottom: 0px;
+}
+.display_details .header{
+    padding-bottom: 10px;
+}
+.display_details h3{
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+.display_details p{
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+.ui.divider:not(.vertical):not(.horizontal){
+    margin-top: 0px;
+    border-top: 1px solid #37ABC0;
+    border-bottom: 0px;
+    opacity: 0.2;
+}
+
+
+/*********** Custom Buttons ***********/
+.ui.icon_btn{
+	background-color: transparent;
+	padding: 11px;
+	padding-right: 3px;
+}
+
+.ui.blue.button{
+    color: #FFFFFF;
+    background-color: #37ABC0; 
+}
+.ui.blue.button:hover,.ui.blue.button:focus{
+    color: #FFFFFF;
+    background-color: #3198AA; 
+}
+
+
+/***********  Profile Display (used in staff page) ***********/
+#profile p{
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+#profile h1{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900; 
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+#hash_id{
+    font-size: 14px;
+    margin-bottom: 0px;
+    font-style: italic;
+    color: #999;
+}
+#hash_id:hover{
+    color: #37ABC0;
+}
+.ui.blue.button{
+    color: #FFFFFF;
+    background-color: #37ABC0; 
+}
+.ui.blue.button:hover,.ui.blue.button:focus{
+    color: #FFFFFF;
+    background-color: #3198AA; 
+}
+
+
+
+/**
+ * Media Queries
+ *
+ */
+@media (max-width:992px){
+	.side_bar{
+		width: 200px;
+	}
+	.main_content_wrapper{
+
+		margin-left: 200px;
+	}
+	.main_content{
+		padding: 50px;
+	}
+}
+@media (max-width:768px){
+	.side_bar{
+		width: 150px;
+	}
+	.main_content_wrapper{
+		margin-left: 150px;
+	}
+}
+@media (max-width:512px){
+	.side_bar{
+		position: relative;
+		padding-top: 0px;
+		width: 100%;
+	}
+	.main_content_wrapper{
+		margin-left: 0px;
+		margin-top: 0px;
+	}
+}
+@media (max-width:460px){
+	.ui.menu img{
+		padding: 10px 5px 0px 15px;
+		height: 55px;
+	}
+	.ui.menu .content{
+		padding: 15px 5px 0px 0px;
+		font-size: 0.8rem;
+	}
+	.ui.menu .sub.header{
+		margin-top: -5px;
+		font-size: 0.6rem;
+	}
+}
+@media (max-width:376px){
+	.ui.menu img{
+		padding: 15px 5px 0px 15px;
+		height: 50px;
+	}
+	.ui.menu .content{
+		padding: 10px 5px 0px 0px;
+		font-size: 0.8rem;
+	}
+	.ui.menu .sub.header{
+		margin-top: -5px;
+		font-size: 0.6rem;
+	}
+}
