@@ -16,7 +16,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {   
-        if(Auth::user()->hasRole('admin')){
+        if(Auth::check() && Auth::user()->hasRole('admin')){
             return $next($request);
         }
         //Displays Error 403

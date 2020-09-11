@@ -16,9 +16,10 @@ class Staff
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->hasRole('staff')){
+        if(Auth::check() && Auth::user()->hasRole('staff')){
             return $next($request);
         }
+        
         //Displays Error 403
         abort(403, 'Unauthorized action.');
     }

@@ -14,10 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('auth.login');
 });
-
-
 
 Auth::routes();
 
@@ -25,6 +23,7 @@ Auth::routes();
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth', 'admin')->group(function(){
     Route::get('/', 'AdminController@index');
     Route::post('/user/role', 'AdminController@assignRole')->name('user.role');
+    Route::post('/user/search', 'AdminController@users')->name('user.search');
 });
 
 //All the Staff Routes
@@ -33,30 +32,17 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware('auth', '
 
     Route::prefix('profile')->name('profile')->group(function(){
         Route::get('/','StaffController@profile');
-        Route::post('/edit', 'StaffController@profileUpdate')->name('.edit');
+        Route::post('/edit', 'StaffController@edit')->name('.edit');
         Route::post('avatar/edit', 'StaffController@avatar')->name('.avatar.edit');
     });
-
-    Route::prefix('qualification')->name('qualification')->group(function(){
-        Route::get('/','StaffController@qualification');
-        Route::post('/edit','StaffController@jsonUpdate')->name('.edit');
-    });
-
-    Route::prefix('publication')->name('publication')->group(function(){
-        Route::get('/','StaffController@publication');
-        Route::post('/edit','StaffController@jsonUpdate')->name('.edit');
-    });
-
-    Route::prefix('workshop')->name('workshop')->group(function(){
-        Route::get('/','StaffController@workshop');
-        Route::post('/edit','StaffController@jsonUpdate')->name('.edit');
-    });
-
-    Route::prefix('online_course')->name('online_course')->group(function(){
-        Route::get('/','StaffController@online_course');
-        Route::post('/edit','StaffController@jsonUpdate')->name('.edit');
-    });
-    
+   
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')->group(function(){
+    //Search Route
+    Route::get('/search/{id}', 'UserController@show')->name('search.show');
+    Route::post('/search', 'UserController@index')->name('search');
+});
+
+//Guest Login 
+Route::get('/guest', 'HomeController@index')->name('home');

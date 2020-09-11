@@ -56,5 +56,9 @@ class User extends Authenticatable
         return $userRole;
     }
 
+    public function profile(){
+        return $this->hasOne(Staff::class);
+    }
+
 
 }
