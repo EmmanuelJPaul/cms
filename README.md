@@ -8,8 +8,9 @@
 
 ### Project Enviroment
 - Extract the cloned repository in the dersired directory
-- Open a terminal in the root folder of the project 
-- To migrate the Database execute ``` php artisan migrate ```
+- Create a Mysql Database called <b>`cms`</b>
+- Open a terminal in the root folder of the project
+- To migrate the Tables to the Database execute ``` php artisan migrate ```
 - Setup the default user by Seeding the database, to do so execute ``` php artisan db:seed ```
 
 Hurray all done!
