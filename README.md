@@ -14,5 +14,5 @@
 
 Hurray all done!
 
-## Launch Server
+## Launch Application
 To spin up a server, open up a terminal in the project's root folder and execute ``` php artisan serve ``` in the terminal.
