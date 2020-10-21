@@ -13,9 +13,10 @@ class StaffController extends Controller
 {
     public function index(){
         $id = Auth::id();
-        $user = User::get();
+        $user = User::select('name', 'email', 'avatar')->where('id', $id)->get();
         $data = Staff::where('user_id', $id)->get();
-        return view('staff.home', ['data' => $data[0], 'user' => $user[0]]);
+        $avatar = $user[0]->avatar;
+        return view('staff.home', ['data' => $data[0], 'user' => $user[0], 'avatar' => $avatar]);
     }
 
     /**
@@ -23,13 +24,14 @@ class StaffController extends Controller
      */ 
     public function profile(){
         $id = Auth::id();
-        $staff_auth = User::where('id', $id)->select('name', 'email')->get();
+        $staff_auth = User::where('id', $id)->select('name', 'email', 'avatar')->get();
         $data = Staff::where('user_id', $id)->get();
 
         $data[0]->name = $staff_auth[0]->name;
         $data[0]->email = $staff_auth[0]->email;
+        $avatar = $staff_auth[0]->avatar;
 
-        return view('staff.profile', ['data' => $data[0]]);
+        return view('staff.profile', ['data' => $data[0], 'avatar' => $avatar]);
     }
 
     public function edit(Request $request){
@@ -88,11 +90,11 @@ class StaffController extends Controller
             ]);
             
             //Get the Old Avatar Name
-            $avatar_name = Staff::where('user_id', $userId)->select('avatar')->get();
-            $file_name = ($avatar_name == 'default') ? uniqid() : $avatar_name[0]->avatar;           
+            $avatar_name = User::where('id', $userId)->select('avatar')->get();
+            $file_name = ($avatar_name[0]->avatar == 'default') ? uniqid() : $avatar_name[0]->avatar;           
 
             $avatar->storeAs('avatar', $file_name, 'public');
-            Staff::where('user_id', $userId)->update(['avatar' => $file_name]);
+            User::where('id', $userId)->update(['avatar' => $file_name]);
         }
         
         return redirect()->back();

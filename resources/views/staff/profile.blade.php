@@ -4,33 +4,11 @@
 <?php 
     function dynamic_date($from, $to){
         $from_date = date_create(date('Y-m-d', strtotime($from)));
-        $to_date = date_create(date('Y-m-d', strtotime($to)));
+        $to_date = date_create(date('Y-m-d', strtotime($to . '+1 day')));
         $diff = date_diff($from_date, $to_date);
         return $diff->format("%y Year %m Month %d Day");
     }
 ?>
-
-<!-- Top Navbar -->
-<div class="ui menu">
-	<div class="content">
-		<i class="large bars icon" id="menu-toggle"></i>
-	</div>
-	<div class="item">
-		
-	</div>
-	<div class="right menu">
-		<div class="ui simple dropdown item" style="align-items: center;">
-			<img style="display: block; width: 40px; height: 40px; padding: 0px; margin: 0px 15px; border-radius: 50%;" src="{{ asset('/storage/avatar/'.$data['avatar']) }}">
-			<i class="small angle down icon" style="margin-left: -10px;"></i>
-			<div class="menu">
-				<div class="item"><i class="edit icon"></i>Edit</div>
-				<div class="item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="sign out icon"></i>Logout</div>
-			</div>
-		</div> 
-	</div>
-	<div class="item"></div>
-</div>
-
 <div class="main_content_wrapper">
 	<br><br>
 	<form method="POST" id="form_profile" action="{{ route('staff.profile.edit') }}">
@@ -77,7 +55,7 @@
 				<div class="profile">
 					<div class="basic">
 						<div class="pic">
-							<img class="ui circular image" src="{{ asset('/storage/avatar/'.$data['avatar']) }}">
+							<img class="ui circular image" src="{{ asset('/storage/avatar/'.$avatar) }}" width="100px" height="100px" alt="avatar">
 							<a class="ui circular label" id="avatar_button"><i class="camera icon"></i></a>
 						</div>
 						<div>									
@@ -318,17 +296,18 @@
 														<button class="ui icon_btn button right floated edit" data-id="'.$object_key.'"><i class="pen icon"></i></button>
 														<h3>'.$object->book_title.'</h3>
 														<p>Authors: '.$object->book_author.', '.$object->book_author_2.', '.$object->book_author_3.'</p>
-														<p>Publisher: '.$object->book_publisher.' | ISSN: '.$object->book_issn.'</p>
+														<p>Publisher: '.$object->book_publisher.' | ISBN: '.$object->book_isbn.'</p>
 														<p>'.$object->book_year.'</p>
 
 														
 														<input type="hidden" name="book_title[]" value="'.$object->book_title.'">
 														<input type="hidden" name="book_publisher[]" value="'.$object->book_publisher.'">
 														<input type="hidden" name="book_year[]" value="'.$object->book_year.'">
-														<input type="hidden" name="book_issn[]" value="'.$object->book_issn.'">
+														<input type="hidden" name="book_isbn[]" value="'.$object->book_isbn.'">
 														<input type="hidden" name="book_author[]" value="'.$object->book_author.'">
 														<input type="hidden" name="book_author_2[]" value="'.$object->book_author_2.'">
 														<input type="hidden" name="book_author_3[]" value="'.$object->book_author_3.'">
+														
 																								 
 														
 													</span>
@@ -343,12 +322,13 @@
 								</form>
 								<span id="hidden_form_book">
 									<input type="hidden" name="book_title[]">
+									<input type="hidden" name="book_publisher[]">
+									<input type="hidden" name="book_year[]">
+									<input type="hidden" name="book_isbn[]">
 									<input type="hidden" name="book_author[]">
 									<input type="hidden" name="book_author_2[]">
 									<input type="hidden" name="book_author_3[]">
-									<input type="hidden" name="book_publisher[]">
-									<input type="hidden" name="book_year[]">
-									<input type="hidden" name="book_issn[]">										 
+																			 
 								</span>
 								<br><br>
 								<!-- 
@@ -578,7 +558,7 @@
 									@csrf
 									<div class="display_details">		
 										<h2>Awards</h2>
-										<div class="ui divider"></div>
+										<div class="line"></div>
 										<input type="hidden" name="field" value="award">
 											<?php 
 											//Select the Online Course JSON from the $data[]
@@ -778,6 +758,7 @@
 						<div class="default text">-- Select --</div>
 						<div class="menu">
 							<div class="item" data-value="Asst. Professor">Asst. Professor</div>
+							<div class="item" data-value="Assoc. Professor">Assoc. Professor</div>
 							<div class="item" data-value="Professor">Professor</div>
 							<div class="item" data-value="HOD">HOD</div>
 						</div>
@@ -828,7 +809,12 @@
 <div class="ui avatar modal">
     <i class="close icon"></i>
     <div style="text-align: center; margin: 30px;">
-        <h2>Avatar</h2>				    	
+        <h2>Avatar</h2>
+		<p><b>Image Criteria:</b><br>
+			Size < 2mb |
+			Square Image |
+			Format: jpg, png											
+		</p>				    	
     </div>
     <div class="content" style="padding-right: 30px; padding-left: 30px">
         <form class="ui form" method="POST" action="{{ route('staff.profile.avatar.edit') }}" enctype="multipart/form-data">
@@ -867,11 +853,16 @@
 						<i class="dropdown icon"></i>
 						<div class="default text">-- Select --</div>
 						<div class="menu">
-							<div class="item" data-value="CSE">CSE</div>
-							<div class="item" data-value="IT">IT</div>
-							<div class="item" data-value="ECE">ECE</div>
-							<div class="item" data-value="EEE">EEE</div>
-							<div class="item" data-value="MECH">MECH</div>
+							<div class="item" data-value="B.E">B.E</div>
+							<div class="item" data-value="B.Tech">B.Tech</div>
+							<div class="item" data-value="M.E">M.E</div>
+							<div class="item" data-value="M.Tech">M.Tech</div>
+							<div class="item" data-value="B.Sc">B.Sc</div>
+							<div class="item" data-value="M.Sc">M.Sc</div>
+							<div class="item" data-value="M.Phil">M.Phil</div>
+							<div class="item" data-value="Ph.D">Ph.D</div>
+							<div class="item" data-value="B.A">B.A</div>
+							<div class="item" data-value="M.A">M.A</div>
 						</div>		
 					</div>
 				</div>
@@ -918,7 +909,18 @@
 			<div class="fields">
 				<div class="eight wide field">
 					<label>Title</label>
-					<input type="text" id="modal_experience_job_title" required>
+					<div class="ui selection dropdown">
+						<input type="hidden" id="modal_experience_job_title" required>
+						<i class="dropdown icon"></i>
+						<div class="default text">-- Select --</div>
+						<div class="menu">
+							<div class="item" data-value="Lecturer">Lecturer</div>
+							<div class="item" data-value="Asst. Professor">Asst. Professor</div>
+							<div class="item" data-value="Assoc. Professor">Assoc. Professor</div>
+							<div class="item" data-value="Professor">Professor</div>
+						</div>		
+					</div>
+					
 				</div>
 				<div class="eight wide field">
 					<label>Institution</label>
@@ -1050,8 +1052,8 @@
 					</div>
 				</div>
 				<div class="three wide field">
-					<label>ISSN Number</label>
-					<input id="modal_book_issn" type="text" required>
+					<label>ISBN Number</label>
+					<input id="modal_book_isbn" type="text" required>
 				</div>
 			</div>
 			<div class="fields">
@@ -1189,9 +1191,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="eight wide field" id="fdp_date_calendar_2">
+				<div class="eight wide field">
 					<label>To</label>
-					<div class="ui calendar">
+					<div class="ui calendar" id="fdp_date_calendar_2">
 						<div class="ui input left icon">
 							<i class="alternate calendar outline icon"></i>
 							<input type="text" id="modal_fdp_to" placeholder="-- Pick Date --" required>
@@ -1281,7 +1283,7 @@
 		
 <div class="ui alert modal">
 	<div style="text-align: center; margin: 30px;">
-		<h2>Are you sure you want the Delete this?</h2>				    	
+		<h2>Are you sure you want to Delete this?</h2>				    	
 	</div>
 	<div class="content" style="padding-right: 30px; padding-left: 30px; padding-bottom: 50px;">
 		<button class="ui blue right floated button" id="confirm_delete">Yes</button>

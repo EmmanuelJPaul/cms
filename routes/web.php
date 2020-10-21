@@ -38,10 +38,12 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware('auth', '
    
 });
 
+// General Auth Routes
 Route::middleware('auth')->group(function(){
-    //Search Route
     Route::get('/search/{id}', 'UserController@show')->name('search.show');
     Route::post('/search', 'UserController@index')->name('search');
+
+    Route::post('user/delete', 'UserController@remove')->name('user.delete');
 });
 
 //Guest Login 

@@ -58,7 +58,29 @@
 			@endif
 		</div>
 		<main>
-
+			<!-- Top Navbar -->
+			<div class="ui menu">
+				<div class="content">
+					<i class="large bars icon" id="menu-toggle"></i>
+				</div>
+				<div class="item">
+					
+				</div>
+				<div class="right menu">
+					<div class="ui simple dropdown item" style="align-items: center;">
+						<img src="{{ asset('/storage/avatar/'.$avatar) }}" style="display: block; width: 40px; height: 40px; padding: 0px; margin: 0px 15px; border-radius: 50%;">
+						<i class="small angle down icon" style="margin-left: -10px;"></i>
+						<div class="menu">
+							@if(Auth::user()->hasRole('staff'))
+								<a href="{{ route('staff.profile') }}" class="item"><i class="edit icon"></i>Edit</a>
+							@endif
+							<div class="item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="sign out icon"></i>Logout</div>
+						</div>
+					</div> 
+				</div>
+				<div class="item"></div>
+			</div>	
+			
 			@yield('content')
 
 		</main>

@@ -7,6 +7,7 @@ use Response;
 use Auth;
 use App\User;
 use App\Staff;
+use App\Role;
 
 class UserController extends Controller
 {
@@ -30,9 +31,8 @@ class UserController extends Controller
                         <td>'. $user->email .'</td>
                         <td>'. $user->profile->designation .'</td>
                         <td>'. $user->profile->department .'</td>
-                        <td><a class="ui blue button" href="/search/'.$user->profile->staff_id.'"><i class="eye outline icon"></i> View</a></td>
-                    </tr>
                 ';
+                $data .= isset($user->profile->staff_id) ? '<td><a class="ui blue button" href="/search/'.$user->profile->staff_id.'"><i class="eye outline icon"></i> View</a></td></tr>' : '<td><a class="ui disabled button"><i class="eye outline icon"></i> View</a></td></tr>';
             }
         }
         $data .= '
@@ -43,19 +43,31 @@ class UserController extends Controller
 
     public function show($id){
         $data = Staff::where('staff_id', $id)->firstOrFail();   
-        $staff_auth = User::where('id', $data->user_id)->select('name', 'email')->firstOrFail();
-
+        $staff_auth = User::where('id', $data->user_id)->select('name', 'email', 'avatar')->firstOrFail();
+        
         $data->name = $staff_auth->name;
         $data->email = $staff_auth->email;
-
+        $data->avatar = $staff_auth->avatar;
+        
+        // LogedIn User Avatar
         $userId = Auth::id();
-        $avatar = Staff::where('user_id', $userId)->select('avatar')->first();
-        $avatar = $avatar->avatar;
-        if(!isset($avatar)){
-            $avatar = 'default';
-        }
-        return view('user', ['data' => $data, 'avatar' => $avatar]);
+        $avatar = User::where('id', $userId)->select('avatar')->first();      
+        
+        return view('user', ['data' => $data, 'avatar' => $avatar->avatar]);
     }
+
+    // public function remove(Request $request){
+    //     $user = Auth::user();
+    //     $id = ($user->roles[0]->name === 'admin') ? $request->data : $user->id;
+        
+    //     // Admin role protection
+    //     $targetUser = User::where('id', $id)->firstOrFail();
+    //     if ($targetUser->roles[0]->name !== 'admin') {
+    //         User::delete()->where('id', $id);
+    //     }
+
+    //     return null;
+    // }
     
 }
  

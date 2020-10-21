@@ -2,27 +2,6 @@
 
 @section('content')
 
-    <!-- Top Navbar -->
-    <div class="ui menu">
-        <div class="content">
-            <i class="large bars icon" id="menu-toggle"></i>
-        </div>
-        <div class="item">
-            
-        </div>
-        <div class="right menu">
-            <div class="ui simple dropdown item" style="align-items: center;">
-                <img src="{{ asset('/storage/avatar/default') }}" style="display: block; width: 40px; height: 40px; padding: 0px; margin: 0px 15px; border-radius: 50%;">
-                <i class="small angle down icon" style="margin-left: -10px;"></i>
-                <div class="menu">
-                    <div class="item"><i class="edit icon"></i>Edit</div>
-                    <div class="item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="sign out icon"></i>Logout</div>
-                </div>
-            </div> 
-        </div>
-        <div class="item"></div>
-    </div> 
-
     <div class="main_content_wrapper">
         
         <!-- start of content -->
@@ -41,89 +20,154 @@
                 </div>   
             </div>
         </div>
-
-
         <br><br>
         <div id="search_target">
-
-        <table class="ui  table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                    <th>View</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($users as $user)
+            <table class="ui table">
+                <thead>
                     <tr>
-                        <td data-label="name">{{ $user->name }}</td>
-                        <td data-label="email">{{ $user->email }}</td>
-                        <td data-label="role">
-                            <?php $userRole =  ''; ?>
-                            @foreach($user->roles as $role)
-                                {{ $role->name }}
-                                
-                                <?php $userRole =  $role->name; ?>
-                            @endforeach
-                        
-                        </td>
-                        <td data-label="action">
-                            <?php $adminFlag = false; ?>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($users as $user)
+                        <tr>
+                            <td data-label="name">
+                                <h4 class="ui image header">
+                                    <img src="{{ asset('/storage/avatar/'.$user->avatar) }}" class="ui small circular image">
+                                    <div class="content">
+                                        {{ $user->name }}
+                                        <div class="sub header">
+                                        @if (isset($user->profile))
+                                            <i>{{ $user->profile->designation }} ({{ $user->profile->department }})</i>
+                                        @endif
+                                    </div>
+                                    </div>
+                                </h4>
+                            </td>
+                            <td data-label="email">{{ $user->email }}</td>
+                            <td data-label="role">
+                                <?php $userRole =  ''; ?>
+                                @foreach($user->roles as $role)
+                                    {{ $role->name }}
+                                    
+                                    <?php $userRole =  $role->name; ?>
+                                @endforeach
+                            
+                            </td>
+                            <td>
+                                <?php $adminFlag = false; ?>
 
-                            @foreach($user->roles as $role)
-                                @if($role->name == 'admin')
-                                    <?php $adminFlag = true; ?>
-                                @endif
-                            @endforeach
-                            @if(!$adminFlag)
-                                <form class="ui form" method="POST" action="{{ route('admin.user.role') }}">
-                                    @csrf
-                                    <input type="hidden" name="userId" value="{{ $user->id }}"> 
-                                    <div class="fields">
-                                        <div class="eleven wide field">
-                                            <div class="ui selection dropdown">
-                                                <input type="hidden" name="role" value="{{ $userRole }}">
-                                                <i class="dropdown icon"></i>
-                                                <div class="default text">Role</div>
-                                                <div class="menu">
-                                                    <div class="item" data-value="staff">Staff</div>
-                                                    <div class="item" data-value="student">Student</div>
-                                                    <div class="item" data-value="guest">Guest</div>
+                                @foreach($user->roles as $role)
+                                    @if($role->name == 'admin')
+                                        <?php $adminFlag = true; ?>
+                                    @endif
+                                @endforeach
+                                @if(!$adminFlag)
+                                <div class="ui icon top left pointing dropdown icon_btn_inv button">
+                                    <i class="ellipsis vertical icon"></i>
+                                    <div class="menu">
+                                        <div class="header">Basic</div>
+                                        @if(isset($user->profile->staff_id))
+                                            <a class="item" href="/search/{{ $user->profile->staff_id }}"><i class="eye outline icon"></i>View</a>
+                                        @else
+                                            <div class="disabled item"><i class="eye outline icon"></i> View</div>
+                                        @endif
+                                        <div class="item user_delete" id="{{ $user->id }}"><i class="trash alternate icon"></i>Delete</div>
+                                        <div class="ui divider"></div>
+                                        <div class="header">Previledge</div>
+                                        <div class="item">
+                                            <i class="dropdown icon"></i>
+                                            <i class="user shield icon"></i> Role
+                                            <div class="menu user_role" id="{{ $user->id }}">
+                                                <div class="item" id="staff">
+                                                    Staff
+                                                </div>
+                                                <div class="item" id="student">
+                                                    Student
+                                                </div>
+                                                <div class="item" id="guest">
+                                                    Guest
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="five wide field">
-                                            <button class="ui red button" type="submit">Commit</button>
-                                        </div>
                                     </div>
-                                </form>
-                            @endif  
-                        </td>
-                        @if(isset($user->profile)){
-                            <td data-label="view"><a class="ui blue button" href="/search/{{ $user->profile->staff_id }}"><i class="eye outline icon"></i> View</a></td>
-                            @else
-                                <td data-label="view"></td>
-                        @endif
-                    </tr>
-                @endforeach
+                                </div>
+                                @else
+                                    <div class="ui icon top left pointing dropdown disabled icon_btn_inv button">
+                                        <i class="ellipsis vertical icon"></i>
+                                    </div>
+                                @endif 
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-    </div>  
+    </div>
+
+    <!-- Alert Modal -->
+    <!-- <div class="ui alert modal">
+        <div style="text-align: center; margin: 30px;">
+            <h1><i class="circular small exclamation icon"></i> Change user's role to Student?</h1>			    	
+        </div>
+        <div class="content" style="padding-right: 30px; padding-left: 30px; padding-bottom: 50px;">
+            <button class="ui blue right floated button" id="confirm_alert">Yes</button>
+            <button class="ui right floated button" id="cancel_alert">Cancel</button>
+        </div>
+    </div>   -->
+
+<span id="alert_modal"></span>
 <script>
     $('.ui.selection').dropdown();
-
+    $('.ui.dropdown').dropdown();
+    
     $('#search').on('keyup', function(event){
         event.preventDefault();
-
         var value = $('#search').val();
-
         $.post("{{ route('admin.user.search') }}", {value: value, _token: '{{ Session::token() }}' }, function(data){
             $('#search_target').html(data);
         });
+    });
+
+
+    function alert_modal(resolve, reject) {
+        // Generate the modal
+        var modal = '<div class="ui alert modal"><div style="text-align: center; margin: 30px;"><h2>Are you sure?</h2></div><div class="content" style="padding-right: 30px; padding-left: 30px; padding-bottom: 50px;"><button class="ui blue right floated button" id="confirm_alert">Yes</button><button class="ui right floated button" id="cancel_alert">Cancel</button></div></div>';
+        $('#alert_modal').html(modal);
+        $('.ui.alert.modal').modal('show');
+        // Alert Cancelled
+        $('#cancel_alert').on('click', function(event){
+            event.preventDefault();
+            $('.ui.alert.modal').modal('hide');
+            reject('Error');
+        });
+        // Alert Confirmed
+        $('#confirm_alert').on('click', function(event){
+            event.preventDefault();
+            $('.ui.alert.modal').modal('hide');
+            resolve();
+        }); 
+    }
+    
+    $('.user_role').children().on('click', function(event){
+        event.preventDefault();
+        // Toggle Alert Modal
+        new Promise(alert_modal).then(() => {
+            var data = {'role': event.target.id, 'userId': $(event.target).parent()[0].id};
+            $.post("{{ route('admin.user.role') }}", {data: data, _token: '{{ Session::token() }}' }, function(data){
+                location.reload();
+            }); 
+        }).catch((e) => {console.log()});
+    });
+
+    $('.user_delete').on('click', function(event){
+        event.preventDefault();
+        $.post("{{ route('user.delete') }}", {data: event.target.id, _token: '{{ Session::token() }}' }, function(data){
+            location.reload();
+        }); 
     });
 </script>
 @endsection

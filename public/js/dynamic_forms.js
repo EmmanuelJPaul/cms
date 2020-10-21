@@ -57,7 +57,7 @@ $('.modal_button').on('click', '#modal_save', function (event) {
     validator(field, holders);
 
     //Validate the Form
-    $('#modal_form_' + field).submit();
+    $('#modal_form_' + field).form('submit');
 
     if ($('#modal_form_' + field).form('is valid')) {
         //Replaces the Values From the Modal to the Hidden Form
@@ -68,7 +68,7 @@ $('.modal_button').on('click', '#modal_save', function (event) {
         $('.ui.modal_' + field).modal('hide');
 
         //Submit the Hidden Form
-        $('#form_' + field).submit();
+        $('#form_' + field).form('submit');
     }
 
 });
@@ -130,7 +130,7 @@ $('.modal_button').on('click', '#modal_add', function (event) {
     validator(field, holders);
 
     //Validate the Form
-    $('#modal_form_' + field).submit();
+    $('#modal_form_' + field).form('submit');
 
     if ($('#modal_form_' + field).form('is valid')) {
 
@@ -147,7 +147,7 @@ $('.modal_button').on('click', '#modal_add', function (event) {
         $('.ui.modal_' + field).modal('hide');
 
         //Submit the Hidden Form
-        $('#form_' + field).submit();
+        $('#form_' + field).form('submit');
     }
 
 });
@@ -182,11 +182,11 @@ $('.delete').on('click', function (event) {
         $('.alert.modal').modal('hide');
 
         //Submit the Hidden Form
-        $('#form_' + field).submit();
+        $('#form_' + field).form('submit');
     });
 
     //Cancels the delete
-    $('#cancel_delete').click(function () {
+    $('#cancel_delete').on('click', function () {
         $('.alert.modal').modal('hide');
     })
 

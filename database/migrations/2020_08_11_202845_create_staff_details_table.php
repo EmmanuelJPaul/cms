@@ -15,7 +15,7 @@ class CreateStaffDetailsTable extends Migration
     {
         Schema::create('staff_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('staff_id')->nullable();
             $table->bigInteger('phone_number')->nullable();
             $table->string('gender', 16)->nullable();
@@ -28,7 +28,6 @@ class CreateStaffDetailsTable extends Migration
             $table->string('designation', 32)->nullable();
             $table->string('anna_university_id', 32)->nullable();
             $table->string('aicte_id', 32)->nullable();
-            $table->string('avatar')->default('default');
             $table->json('academic_qualification')->default('[]');
             $table->json('experience')->default('[]');
             $table->json('journal')->default('[]');
@@ -39,6 +38,8 @@ class CreateStaffDetailsTable extends Migration
             $table->json('workshop')->default('[]');
             $table->json('award')->default('[]');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onCascade('delete');
         });
     }
 

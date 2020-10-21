@@ -3,6 +3,20 @@
 
 @section('content')
 <!-- Content Starts Here -->
+<style>
+  body{
+    background-image: url('images/jit-main.jpg');
+    background-size: cover;
+  }
+  #overlay{
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    background-color: rgba(239, 251, 248,0.95);
+    background-size: cover;
+  }
+</style>
+<div id="overlay"></div>
 <div class="v-center">
   <div class="ui centered grid">
       <div class="six wide computer column">

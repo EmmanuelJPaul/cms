@@ -153,11 +153,7 @@ main{
 	border-bottom: 0px;
 	opacity: 0.2;
 }
-.ui.icon_btn{
-	background-color: transparent;
-	padding: 11px;
-	padding-right: 3px;
-}
+
 
 /**
 * Side Bar Styling
@@ -488,6 +484,22 @@ table .ui.pagination :hover{
 	transform: translate(-50%, -50%);
 }
 
+/**
+* Buttons
+*
+*/
+
+.ui.icon_btn{
+	background-color: transparent;
+	padding: 11px;
+	padding-right: 3px;
+}
+
+.ui.icon_btn_inv,.ui.icon_btn_inv:hover,.ui.active.icon_btn_inv,.ui.active.icon_btn_inv:hover{
+	background-color: transparent;
+	padding: 11px;
+	padding-right: 3px;
+}
 
 
 /**
@@ -596,7 +608,5 @@ table .ui.pagination :hover{
 		font-size: 0.6rem;
 	}
 }
-
-
 
 

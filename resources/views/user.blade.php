@@ -2,35 +2,13 @@
 
 @section('content')
 <?php 
-    function dynamic_date($from, $to){
+     function dynamic_date($from, $to){
         $from_date = date_create(date('Y-m-d', strtotime($from)));
-        $to_date = date_create(date('Y-m-d', strtotime($to)));
+        $to_date = date_create(date('Y-m-d', strtotime($to . '+1 day')));
         $diff = date_diff($from_date, $to_date);
         return $diff->format("%y Year %m Month %d Day");
     }
 ?>
-
-<!-- Top Navbar -->
-<div class="ui menu">
-	<div class="content">
-		<i class="large bars icon" id="menu-toggle"></i>
-	</div>
-	<div class="item">
-		
-	</div>
-	<div class="right menu">
-		<div class="ui simple dropdown item" style="align-items: center;">
-			<img style="display: block; width: 40px; height: 40px; padding: 0px; margin: 0px 15px; border-radius: 50%;" src="{{ asset('/storage/avatar/'. $avatar) }}">
-			<i class="small angle down icon" style="margin-left: -10px;"></i>
-			<div class="menu">
-				<div class="item"><i class="edit icon"></i>Edit</div>
-				<div class="item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="sign out icon"></i>Logout</div>
-			</div>
-		</div> 
-	</div>
-	<div class="item"></div>
-</div>
-
 <div class="main_content_wrapper">
 	<br><br>
 	<div class="ui stackable centered grid">
@@ -59,7 +37,7 @@
 				<div class="profile">
 					<div class="basic">
 						<div class="pic">
-							<img class="ui circular image" src="{{ asset('/storage/avatar/'.$data['avatar']) }}">
+							<img class="ui circular image" src="{{ asset('/storage/avatar/'.$data['avatar']) }}" width="100px" height="100px" alt="avatar">
 							<a class="ui circular label" id="avatar_button"><i class="camera icon"></i></a>
 						</div>
 						<div>									
@@ -215,7 +193,7 @@
                                                 <span id="entry">
                                                     <h3>'.$object->book_title.'</h3>
                                                     <p>Authors: '.$object->book_author.', '.$object->book_author_2.', '.$object->book_author_3.'</p>
-                                                    <p>Publisher: '.$object->book_publisher.' | ISSN: '.$object->book_issn.'</p>
+                                                    <p>Publisher: '.$object->book_publisher.' | ISBN: '.$object->book_isbn.'</p>
                                                     <p>'.$object->book_year.'</p>
                                                 </span>
                                             ');
@@ -355,7 +333,7 @@
 								-->										
                                 <div class="display_details">		
                                     <h2>Awards</h2>
-                                    <div class="ui divider"></div>
+                                    <div class="line"></div>
                                         <?php 
                                         //Select the Online Course JSON from the $data[]
                                         $award_array = json_decode($data['award']);								                

@@ -20,7 +20,7 @@ class Staff extends Model
      */
     protected $fillable = [
         'user_id', 'staff_id', 'phone_number', 'gender', 'date_of_birth', 'permanent_address', 'present_address', 'pan_card_number', 'aadhar_card_number', 'department', 'designation',
-        'anna_university_id', 'aicte_id', 'academic_qualification', 'experience', 'journal', 'conference', 'online_course', 'book',
+        'anna_university_id', 'aicte_id', 'academic_qualification', 'experience', 'journal', 'conference', 'online_course', 'book', 'fdp', 'workshop', 'award',
     ];
 
     public function users(){
