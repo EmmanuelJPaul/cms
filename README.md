@@ -1,7 +1,7 @@
 ## Installation
 
 ### Laravel 
- This project requires Laravel to be pre-install on the executing system. To install laravel:
+ This project requires Laravel to be pre-installed on the executing system. To install laravel:
 - Install [composer](https://getcomposer.org/)
 - Install Laravel globally, execute in the terminal ``` composer global require laravel/installer ```
 
